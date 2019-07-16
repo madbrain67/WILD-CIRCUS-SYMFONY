@@ -1,0 +1,64 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: auto
+
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        in_memory: { memory: ~ }
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+        # used to reload user from session & other features (e.g. switch_user)
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            provider: app_user_provider
+
+            logout:
+                path: app_logout
+                target: home
+            guard:
+                authenticators:
+                    - App\Security\Authenticator
+
+            #remember_me :
+                #secret : '%kernel.secret%'
+                #lifetime : 604800 # 1 week in seconds
+                #path : /
+                # by default, the feature is enabled by checking a
+                # checkbox in the login form (see below), uncomment the
+                # following line to always enable it.
+                #always_remember_me: true
+                # activate different ways to authenticate
+            #guard:
+                #authenticators:
+                    #- App\Security\Authenticator
+                
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        #ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # require ROLE_ADMIN for /admin*
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        # require ROLE_USER for /compte*
+        - { path: ^/compte, roles: ROLE_USER }
+
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
