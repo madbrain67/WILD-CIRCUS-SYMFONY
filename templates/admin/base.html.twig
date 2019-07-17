@@ -7,12 +7,23 @@
         {% block meta %}{% endblock %}
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.strecky.css') }}">
-        <link href="{{ asset('css/all.css') }}" rel="stylesheet"> 
+        <link rel="stylesheet" href="{{ asset('css/all.css') }}"> 
+        <link rel="stylesheet" href="{{ asset('css/dataTables.css') }}">
         <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     </head>
     <body>
-        <div class="logo-header"></div>
-        <div class="container-fluid mt-2" style="background:#282828; border-top:1px solid #E3E4E4;border-bottom:1px solid #E3E4E4;">
+
+        <div class="container-logo">
+            <div class="logo">
+                <div class="logo-sitename">
+                <a href="{{ path('home') }}"><h1>Wild <span class="sitename-color">Circus</span></h1></a>
+                </div>
+                <div class="logo-slogan">
+                <h3>Our job, the art of circus.</h3>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" style="background:#282828; border-top:3px solid #EA9A00;border-bottom:1px solid #E3E4E4;">
             <div class="row col-12 p-3">
                 <div class="row col-6">
                     <h2 class="hanoded pl-3 pt-1 mr-5" style="color:#f1f2f2;">Administration</h2> 
@@ -34,12 +45,12 @@
         <script src="{{ asset('js/jquery-3.3.1.js') }}"></script>
         <script src="{{ asset('js/popper.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+        <script src="{{ asset('js/dataTables.js') }}"></script>
         <script>
             $(document).ready(function() {
                 $('#tab-data').dataTable({
                     "language": {
-                            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+                            "url": "{{ asset('js/French.json') }}"
                         },
                 });
                 $('.alert').delay(3500).fadeOut(2000);
@@ -50,14 +61,6 @@
             let fileName = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
             $(this).parent('.custom-file').find('.custom-file-label').text(fileName);
         });
-        </script>
-        <script>
-            function subb() {
-                if (confirm("Êtes-vous sûr de vouloir supprimer la table loterie ?"))
-                    return true;
-                else
-                    return false;
-            }
         </script>
         {% block jquery %}{% endblock %}
     </body>

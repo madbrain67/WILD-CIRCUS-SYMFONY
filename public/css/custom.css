@@ -65,6 +65,28 @@
 *  END Container Logo 
 */
 
+.container-admin {
+    background:#FBFBFB;
+    -moz-box-shadow: 5px 0px 5px 0px #656565;
+    -webkit-box-shadow: 5px 0px 5px 0px #656565;
+    -o-box-shadow: 5px 0px 5px 0px #656565;
+    box-shadow: 5px 0px 5px 0px #656565;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=90, Strength=5);
+}
+.container-aside h1 {
+    color:#EA9A00;
+}
+
+ul.list-group  {
+    color:#fff !important;
+    text-decoration:none !important;
+}
+
+.trash {
+    border:0;
+    background:transparent;
+}
+
 h2.prices {
     color:#EA9A00;
     font-size:5vw;

@@ -22,7 +22,7 @@ class AdminCategoriesController extends AbstractController
 
     private $params;
 
-    public function __construct()
+    public function __construct(ParameterBagInterface $params)
     {
         $this->params = $params;
     }
@@ -35,9 +35,23 @@ class AdminCategoriesController extends AbstractController
 
         return $this->render(
             'admin/categories/index.html.twig', [
-            'headers' => $categoriesRepository->findAll(),
+            'categories' => $categoriesRepository->findAll(),
             ]
         );
+    }
+
+    /**
+     * @Route("/admin/categorie/delete/{id}", name="categorie_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, CategoriesPrices $category): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($category);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('categories_index');
     }
 
 }

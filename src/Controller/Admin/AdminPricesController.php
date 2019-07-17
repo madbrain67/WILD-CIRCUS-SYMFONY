@@ -22,7 +22,7 @@ class AdminPricesController extends AbstractController
 
     private $params;
 
-    public function __construct()
+    public function __construct(ParameterBagInterface $params)
     {
         $this->params = $params;
     }
@@ -35,9 +35,22 @@ class AdminPricesController extends AbstractController
 
         return $this->render(
             'admin/prices/index.html.twig', [
-            'headers' => $pricesRepository->findAll(),
+            'prices' => $pricesRepository->findByTableau(),
             ]
         );
     }
 
+    /**
+     * @Route("/admin/ptrice/delete/{id}", name="price_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Prices $price): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$price->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($price);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('prices_index');
+    }
 }

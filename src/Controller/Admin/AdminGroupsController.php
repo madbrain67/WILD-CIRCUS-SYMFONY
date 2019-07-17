@@ -22,7 +22,7 @@ class AdminGroupsController extends AbstractController
 
     private $params;
 
-    public function __construct()
+    public function __construct(ParameterBagInterface $params)
     {
         $this->params = $params;
     }
@@ -35,9 +35,22 @@ class AdminGroupsController extends AbstractController
 
         return $this->render(
             'admin/groups/index.html.twig', [
-            'headers' => $groupsRepository->findAll(),
+            'groups' => $groupsRepository->findAll(),
             ]
         );
     }
 
+    /**
+     * @Route("/admin/groups/delete/{id}", name="group_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, GroupsPrices $groups): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$groups->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($groups);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('groups_index');
+    }
 }
