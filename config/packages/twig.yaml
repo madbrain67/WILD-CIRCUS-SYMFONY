@@ -7,3 +7,4 @@ twig:
         sitename: '%sitename%'
         slogan: '%slogan%'
         local: '%locale%'
+        cart: '@App\Service\Cart'

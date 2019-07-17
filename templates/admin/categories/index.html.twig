@@ -1,0 +1,52 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3 pt-5 container-admin">
+            {{ include('admin/menu.html.twig') }}
+            </div>
+            <div class="col-9 pt-5 px-5 pb-5">
+                <div class="pb-4 mb-1 container-aside">
+                <h1>Category</h1>
+                <hr>
+                <a href="" class="btn btn-secondary">Ajouter une entrée</a>
+                <hr>
+                </div>
+                <div class="table-responsive">
+                    <table class="display" id="tab-data">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for categorie in categories %}
+                            <tr>
+                                <td>{{ categorie.id }}</td>
+                                <td>{{ categorie.name }}</td>
+                                <td class="text-center">
+                                    <a href="" class="trash">
+                                        <i class="fas fa-pen-nib"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center">{{ include('admin/categories/_delete_form.html.twig') }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="7">Aucun enregistrement trouvé</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
