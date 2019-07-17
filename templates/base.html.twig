@@ -3,17 +3,113 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="Author" content="FERRERO Franck">
+    <meta name="description" content="{% block metaDesc %}{% endblock %}">
+    <meta name="keywords" content="{% block metaKey %}{% endblock %}">
     <title>{% block title %}{% endblock %}</title>
-
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.4.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.strecky.css') }}">
+    <link href="{{ asset('css/all.css') }}" rel="stylesheet"> 
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    {% block stylesheets %}{% endblock %}
+    {% block style %}{% endblock %}
   </head>
   <body>
+    {% set route = app.request.attributes.get('_route') %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{{ path('home') }}">{{ sitename }}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="{{ path('prices') }}">Prices</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% if is_granted('ROLE_USER') == true %}
+              {% if is_granted('ROLE_ADMIN') == true %}
+              {#<a class="nav-item nav-link {{ 'admin' in route ? 'active' }}" href="{{ path('admin') }}">{{ 'ADMINISTRATION'|trans|raw }}</a>#}
+              <a class="dropdown-item" href="{{ path('admin') }}">Administration</a>
+              {% endif %}
+              <a class="dropdown-item" href="#">Edit account</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+          {% else %}
+              <a class="dropdown-item" href="{{ path('app_login') }}">Login</a>
+              <a class="dropdown-item" href="{{ path('app_register') }}">Register</a>
+          {% endif %}
+            </div>
+          </li>
+        </div>
+      </div>
+    </nav>
+
+
+    <div class="container-logo">
+
+      <div class="logo">
+        <div class="logo-sitename">
+          <a href="{{ path('home') }}"><h1>Wild <span class="sitename-color">Circus</span></h1></a>
+        </div>
+        <div class="logo-slogan">
+          <h3>Our job, the art of circus.</h3>
+        </div>
+      </div>
+
+
+    </div>
+    {#}
+    <div class="parallax"></div>
+
+    <div style="padding-top: 200px;"></div>
+
+    <div class="parallax"></div>
+
+    <div style="padding-top: 200px;"></div>
+    {#}
+
     {% block body %}{% endblock %}
+
+    <footer>
+      <div class="container my-5">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <h3>About Us</h3>
+            <div class="follow">
+              Follow us on our social networks.
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5 mt-sm-0 mt-md-0 mt-lg-0 mt-xl-0">
+            <h3>Wild Circus</h3>
+            <div class="follow">Follow us on our social networks.</div>
+            <div class="follow-icons-social mt-2">
+              <a href="#" title="Facebook"><i class="fab fa-facebook"></i></span></a>
+              <a href="#" title="Google"><i class="fab fa-google"></i></a>
+              <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" title="Snapchat"><i class="fab fa-snapchat-ghost"></i></a>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-5 mt-5 mt-sm-0 mt-md-0 mt-lg-0 mt-xl-0">
+            <h3>Wild Code School</h3>
+            <span><i class="fas fa-home"></i>32 Rue du Bassin d'Austerlitz, 67100 Strasbourg</span><br>
+            <span><i class="fas fa-phone"></i>06.58.70.53.99</span><br>
+            <span><i class="fas fa-link"></i><a href="https://wildcodeschool.fr" target="new">Wild Code School</a></span>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-5 mt-5 mt-sm-0 mt-md-0 mt-lg-0 mt-xl-0">
+            <h3>My profil</h3>
+              <p><a href="https://github.com/madbrain67" target="new"><i class="fab fa-github"></i>Github</a></p>
+              <p><a href="https://www.linkedin.com/in/franck-ferrero/" target="new"><i class="fab fa-linkedin"></i>Linkedin</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <span class="fas fa-copyright"></span> 2019 Wild Circus - All Rights Reserved. | <a href="https://www.plateformweb.com" target="new">Website creation</a> | (16/07/2019) 
+      </div>
+    </footer>
     <script src="{{ asset('js/jquery-3.3.1.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    {% block javascripts %}{% endblock %}
+    {% block js %}{% endblock %}
   </body>
 </html>

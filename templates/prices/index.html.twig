@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prices{% endblock %}
+{% block metaDesc %}{% endblock %}
+{% block metaKey %}{% endblock %}
+
+{% block body %}
+<div class="container-fluid mb-5">
+    <div class="row">
+        <div class="col-12 text-center pt-5">
+            <h2 class="prices">{{ 'PRICES'|trans|raw }}</h2>
+            <p></p>
+        </div>
+        {% for categorie in categories %}
+            <div class="col-12 text-center">
+                <h1 class="text-center">{{ categorie.name }}</h1>
+            </div>
+            {% for tableau in tableauPrices %}
+                {% if categorie.name == tableau.name %}
+                    <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 text-center mt-3 mt-sm-0 mt-md-0 mt-lg-0 mt-xl-0">
+                        <div class="card">
+                        <h5 class="card-header">{{ tableau.groups }}</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">Price: {{ tableau.price }}$</h5>
+                            <p class="card-text">
+                                <span><button id="{{ loop.index }}" class="btn btn-primary mr-3 moins">-</button></span>
+                                <span id="qt-{{ loop.index }}">0</span>
+                                <span><button id="{{ loop.index }}" class="btn btn-primary ml-3 plus">+</button></span>
+                            </p>
+                            <a href="#" class="btn btn-primary">Add cart</a>
+                        </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $(".moins").click(function() {
+        id = $(this).attr("id");
+        price = parseInt($("#qt-"+id).text());
+        if (price > 0) {
+            price = price - 1;
+            $("#qt-"+id).text(price);
+        }
+    });
+    $(".plus").click(function() {
+        id = $(this).attr("id");
+        price = parseInt($("#qt-"+id).text());
+        price = price + 1;
+        $("#qt-"+id).text(price);
+    });
+</script>
+{% endblock %}
