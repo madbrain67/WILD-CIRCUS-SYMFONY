@@ -1,0 +1,140 @@
+.navbar-brand {
+   color:#EA9A00 !important; 
+}
+
+@media screen and (min-width: 1024px) {
+    .menufixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+      background: #fff;
+      -moz-box-shadow: 0px 3px 3px 0px #656565;
+      -webkit-box-shadow: 0px 3px 3px 0px #656565;
+      -o-box-shadow: 0px 3px 3px 0px #656565;
+      box-shadow: 0px 3px 3px 0px #656565;
+      filter: progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=180, Strength=3);
+    } 
+}
+
+.container-grey {
+    background:#dedede;
+}
+
+.btn-primary {
+    background:#EA9A00 !important;
+}
+
+.parallax { 
+    background-image: url("../images/circus-2885542_1920.png");
+    height: 300px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+/*
+*  Container Logo 
+*/
+
+.container-logo {
+    background:url("http://madbrain13.free.fr/Wild_Code_School/images/BFB54GD5DS.jpg") repeat-x;
+    padding:20px;
+}
+.container-logo .logo a {
+    text-decoration:none;
+    color:#fff;
+}
+.container-logo .logo .logo-sitename h1,
+.container-logo .logo .logo-slogan   {
+    font-family: 'Amatic SC', cursive;
+    font-size:10vw;
+    padding-left:5vw;
+}
+.container-logo .logo .logo-sitename h1 .sitename-color {
+    color:#EA9A00;
+}
+.container-logo .logo-slogan {
+    color:#fff;
+    font-family: 'Amatic SC', cursive;
+}
+
+/*
+*  END Container Logo 
+*/
+
+.container-admin {
+    background:#FBFBFB;
+    -moz-box-shadow: 5px 0px 5px 0px #656565;
+    -webkit-box-shadow: 5px 0px 5px 0px #656565;
+    -o-box-shadow: 5px 0px 5px 0px #656565;
+    box-shadow: 5px 0px 5px 0px #656565;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=90, Strength=5);
+}
+.container-aside h1 {
+    color:#EA9A00;
+}
+
+ul.list-group  {
+    color:#fff !important;
+    text-decoration:none !important;
+}
+
+.trash {
+    border:0;
+    background:transparent;
+}
+
+h2.prices {
+    color:#EA9A00;
+    font-size:5vw;
+}
+
+@media screen and (max-width: 1024px) {
+    h2.prices {
+        font-size:9vw;
+    }
+}
+
+/*
+*  Footer
+*/
+
+footer {
+    border-top:3px solid #EA9A00;
+    background:#000 url("http://madbrain13.free.fr/Wild_Code_School/images/BFB54GD5DS.jpg") repeat-x;
+    color:#fff;
+}
+
+footer a {
+    color:#EA9A00;
+    text-decoration:none;
+}
+
+.fab, .fas, .fa {
+    margin-right:10px;
+}
+
+footer a:hover {
+    color:rgb(215, 218, 40);
+    text-decoration:none;
+}
+
+footer .copyright {
+    border-top:3px solid #EA9A00;
+    background:#000;
+    text-align:center;
+    color:#fff;
+    padding:15px;
+}
+
+footer .copyright a {
+    color:#EA9A00;
+    text-decoration:none;
+}
+
+/*
+*  END footer
+*/
