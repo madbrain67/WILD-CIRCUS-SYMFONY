@@ -23,31 +23,50 @@
         <div class="navbar-nav">
           <a class="nav-item nav-link" href="{{ path('prices') }}">Prices</a>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Account
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          {% if is_granted('ROLE_USER') == true %}
-              {% if is_granted('ROLE_ADMIN') == true %}
-              {#<a class="nav-item nav-link {{ 'admin' in route ? 'active' }}" href="{{ path('admin') }}">{{ 'ADMINISTRATION'|trans|raw }}</a>#}
-              <a class="dropdown-item" href="{{ path('admin') }}">Administration</a>
+            <div class="dropdown-menu" aria-labelledby="accountDropdown">
+              {% if is_granted('ROLE_USER') == true %}
+                  {% if is_granted('ROLE_ADMIN') == true %}
+                    <a class="dropdown-item" href="{{ path('admin') }}">Administration</a>
+                  {% endif %}
+                  <a class="dropdown-item" href="#">Edit account</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+              {% else %}
+                  <a class="dropdown-item" href="{{ path('app_login') }}">Login</a>
+                  <a class="dropdown-item" href="{{ path('app_register') }}">Register</a>
               {% endif %}
-              <a class="dropdown-item" href="#">Edit account</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
-          {% else %}
-              <a class="dropdown-item" href="{{ path('app_login') }}">Login</a>
-              <a class="dropdown-item" href="{{ path('app_register') }}">Register</a>
+            </div>
+          </li>
+          {% set somme = 0 %}
+          {% if is_granted('ROLE_USER') == true %}
+            {% set paniers = cart.checkPanier(app.user.id) %}
+            {% for panier in paniers %}
+              {% set somme = somme + (panier.qt * panier.price) %}
+            {% endfor %}
           {% endif %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Cart <span id="cart">{{ somme }}</span>$
+            </a>
+            <div class="dropdown-menu" aria-labelledby="cartDropdown">
+              <div id="list-cart" class="p-3">
+                {% if is_granted('ROLE_USER') == true %}
+                  {% set paniers = cart.checkPanier(app.user.id) %}
+                  {% for panier in paniers %}
+                    <div class="p-2">{{ panier.qt }} * {{ panier.groups }} ({{ panier.name }})</div>
+                  {% endfor %}
+                {% endif %}
+              </div>
+              <div class="p-3 text-right" style="border-top:1px solid #666;">Total: <span id="total-cart" >{{ somme }}</span><span>$</span></div>
             </div>
           </li>
         </div>
       </div>
     </nav>
-
-
     <div class="container-logo">
-
       <div class="logo">
         <div class="logo-sitename">
           <a href="{{ path('home') }}"><h1>Wild <span class="sitename-color">Circus</span></h1></a>
@@ -56,21 +75,8 @@
           <h3>Our job, the art of circus.</h3>
         </div>
       </div>
-
-
     </div>
-    {#}
-    <div class="parallax"></div>
-
-    <div style="padding-top: 200px;"></div>
-
-    <div class="parallax"></div>
-
-    <div style="padding-top: 200px;"></div>
-    {#}
-
     {% block body %}{% endblock %}
-
     <footer>
       <div class="container my-5">
         <div class="row">
